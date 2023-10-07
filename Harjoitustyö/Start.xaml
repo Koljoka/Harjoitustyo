@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Harjoitustyö.Start"
+             Title="Arcade page" BackgroundColor="Black">
+    <ScrollView>
+
+        <Grid x:Name="Table" BackgroundColor="Black" HorizontalOptions="Center">
+
+            <Grid.RowDefinitions>
+                
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+                <RowDefinition Height="100"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="100"></ColumnDefinition>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+
+            <Label x:Name="p1" TextColor="LightBlue" Padding="20" HorizontalOptions="Start" FontSize="Medium" FontAttributes="Bold" ></Label>
+            <Label TextColor="LightBlue" HorizontalTextAlignment="Start"  FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="200"  Padding="20" FontSize="Medium" Grid.Row="1" Grid.Column="0">0-0-0</Label>
+
+            <Button x:Name="rowone0" Clicked="ButtonClicked" FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="1" Grid.Column="1" ></Button>
+            <Button x:Name="rowone1" Clicked="ButtonClicked" FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="1" Grid.Column="2" ></Button>
+            <Button x:Name="rowone2" Clicked="ButtonClicked"  FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="1" Grid.Column="3" ></Button>
+            <Button x:Name="rowtwo0" Clicked="ButtonClicked"  FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="2" Grid.Column="1" ></Button>
+            <Button x:Name="rowtwo1" Clicked="ButtonClicked"  FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="2" Grid.Column="2" ></Button>
+            <Button x:Name="rowtwo2" Clicked="ButtonClicked"  FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="2" Grid.Column="3" ></Button>
+            <Button x:Name="rowthree0" Clicked="ButtonClicked"  FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="3" Grid.Column="1" ></Button>
+            <Button x:Name="rowthree1" Clicked="ButtonClicked"  FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="3" Grid.Column="2" ></Button>
+            <Button x:Name="rowthree2" Clicked="ButtonClicked"  FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="3" Grid.Column="3" ></Button>
+
+            <Label x:Name="opponent" TextColor="Red" Grid.Row="0" Grid.Column="4" Padding="20" HorizontalOptions="End" FontSize="Medium" FontAttributes="Bold" >Player 2</Label>
+            <Label TextColor="Red" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="End" HorizontalOptions="Center" WidthRequest="200" Padding="20,20,20,20"  FontSize="Medium" Grid.Row="1" Grid.Column="4">0-0-0</Label>
+
+
+            <Label TextColor="LawnGreen" FontSize="Header" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Start" 
+            Grid.Column="1" Grid.ColumnSpan="2" WidthRequest="200" HeightRequest="100"  HorizontalOptions="Center" Grid.Row="0" Padding="10">Timer: 
+            </Label>
+
+            <Label TextColor="Yellow" FontSize="Header" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Start" 
+            Grid.Column="3" WidthRequest="200" HeightRequest="100"  HorizontalOptions="Center" Grid.Row="0" Padding="10" x:Name="TimerL" >
+            </Label>
+
+            <Button x:Name="NewGame" Clicked="NewGame_Clicked" Grid.Row="4" Grid.ColumnSpan="3" Grid.Column="1" Margin="10" WidthRequest="200" HeightRequest="20" Text="New Game" FontSize="Medium" FontAttributes="Bold" BorderWidth="3" BorderColor="LawnGreen" BackgroundColor="Black" TextColor="Yellow"></Button>
+
+        </Grid>
+
+    </ScrollView>
+
+
+</ContentPage>
