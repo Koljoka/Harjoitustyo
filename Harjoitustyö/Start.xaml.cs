@@ -13,7 +13,7 @@ public partial class Start : ContentPage
     int timerCount;
     public Start()
     {
-        InitializeComponent();
+        InitializeComponent();// tästä alkaa ohjelman suoritus
 
 
     }
