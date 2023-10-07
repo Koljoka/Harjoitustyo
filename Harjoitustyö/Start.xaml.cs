@@ -32,11 +32,23 @@ public partial class Start : ContentPage
             {
                 button.Text = "O";//jos taas ei niin silloin se on false ja kirjoitetaan O
             }
-            moveCount++;//Lasketaan vuoroja ja lisätään aina yksi
+            moveCount++;     //Lasketaan vuoroja ja lisätään aina yksi
             if (FindWinner())// Suoritetaan funktio joka tarkistaa löytyykö kolmen suoraa
             {
                 timer.Stop();//jos löytyi ajastin pysäytetään ja annetaan tekstilaatikko joka jertoo allaolevan.
-                await DisplayAlert("Winner!", "Congratulations!", "Exit");
+
+                if (p1Turn) // Käydään voittajavaihtoehdot läpi ja ilmoitetaan se asianmukaisella tekstillä DisplayAlertissa
+                {
+                    await DisplayAlert($"{_info.Firstname} is the WINNER!", "Congartulations!", "Exit" );
+                }    
+            else if (opponent.Text == "AI") 
+            {
+                    await DisplayAlert("AI is the WINNER.", "Better luck next time", "Exit");
+                }
+            else
+            {
+                    await DisplayAlert("Player 2 is the WINNER", "Congratulations!", "Exit");
+                }
             }
             else if(moveCount==9)//Jos kaikki siirrot on tehty eikä kolmen suoraa löytynyt peli pääättyy tasan
             {
@@ -176,7 +188,7 @@ public partial class Start : ContentPage
             if (FindWinner())// Suoritetaan funktio joka tarkastaa löytyikö kolmen suoraa
             {
                 timer.Stop();
-                DisplayAlert("Winner!", "Congratulations!", "Exit");
+                DisplayAlert("AI is the WINNER.", "Better luck next time", "Exit");
             }
             else if (moveCount == 9)
             {
