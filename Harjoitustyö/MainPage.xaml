@@ -35,10 +35,10 @@
             <Entry x:Name="Byear" Grid.Row="3" Grid.Column="1" BackgroundColor ="WhiteSmoke" HeightRequest="50" Placeholder="xxxx" BindingContext="{x:Reference pickPlayer}" Text="{Binding SelectedItem.Birthyear}"></Entry>
 
             <Label Grid.Row="4" TextColor="Yellow" Grid.Column="0" Padding="20" FontSize="Medium" FontAttributes="Bold" Text="Choose opponent"></Label>
-            <Button x:Name="AIButton" Grid.Row="4" Grid.Column="1" BorderWidth="5" BorderColor="CornflowerBlue" BackgroundColor="Red" Text="AI" FontAttributes="Bold" TextColor="Black" FontSize="Title" WidthRequest="100" HorizontalOptions="Start" Clicked="AIButton_Clicked" ></Button>
-            <Button x:Name="Player2Button" Grid.Row="4" Grid.Column="1"  BorderWidth="5" BorderColor="CornflowerBlue" BackgroundColor="LawnGreen" Text="Player 2" FontAttributes="Bold" TextColor="Black" FontSize="Title" WidthRequest="140" HorizontalOptions="End" Clicked="Player2Button_Clicked"></Button>
+            <Button x:Name="AIButton" Grid.Row="4" Grid.Column="1" BorderWidth="5" BorderColor="Orange" BackgroundColor="Red" Text="AI" FontAttributes="Bold" TextColor="Black" FontSize="Title" WidthRequest="100" HorizontalOptions="Start" Clicked="AIButton_Clicked" ></Button>
+            <Button x:Name="Player2Button" Grid.Row="4" Grid.Column="1"  BorderWidth="5" BorderColor="ForestGreen" BackgroundColor="LawnGreen" Text="Player 2" FontAttributes="Bold" TextColor="Black" FontSize="Title" WidthRequest="140" HorizontalOptions="End" Clicked="Player2Button_Clicked"></Button>
 
-            <Button Clicked="StartButton_Clicked" x:Name="StartButton" FontSize="Medium" TextColor="LawnGreen" Grid.Row="5" Grid.Column="1" Margin="10" FontAttributes="Bold" BackgroundColor="CornflowerBlue" Text="START GAME" WidthRequest="230" HeightRequest="50"></Button>
+            <Button Clicked="StartButton_Clicked" x:Name="StartButton" FontSize="Medium" TextColor="Yellow" Grid.Row="5" Grid.Column="1" Margin="10" FontAttributes="Bold" BackgroundColor="Black" BorderColor="LawnGreen" BorderWidth="5" Text="START GAME" WidthRequest="230" HeightRequest="50"></Button>
 
             
                 

@@ -60,14 +60,14 @@ namespace Harjoitustyö
         {
             selectedOpponent = "Player 2";
             Player2Button.BorderColor = Colors.Yellow;
-            AIButton.BorderColor = Colors.CornflowerBlue;
+            AIButton.BorderColor = Colors.Orange;
         }
 
         private void AIButton_Clicked(object sender, EventArgs e)
         {
             selectedOpponent = "AI";
             AIButton.BorderColor= Colors.Yellow;
-            Player2Button.BorderColor= Colors.CornflowerBlue;
+            Player2Button.BorderColor= Colors.ForestGreen;
         }
 
 

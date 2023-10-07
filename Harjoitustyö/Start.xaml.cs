@@ -18,7 +18,7 @@ public partial class Start : ContentPage
 
     }
 
-    private void ButtonClicked(object sender, EventArgs e) //Kaikki XAMLissa määritellyt pelialustan napit Noudattavat tämän tapahtuman logiikkaa.
+    private async void ButtonClicked(object sender, EventArgs e) //Kaikki XAMLissa määritellyt pelialustan napit Noudattavat tämän tapahtuman logiikkaa.
     {
         var button = sender as Button; //Tallennetaan button muuttujaan tietoa klikeistä
 
@@ -36,38 +36,48 @@ public partial class Start : ContentPage
             if (FindWinner())// Suoritetaan funktio joka tarkistaa löytyykö kolmen suoraa
             {
                 timer.Stop();//jos löytyi ajastin pysäytetään ja annetaan tekstilaatikko joka jertoo allaolevan.
-                DisplayAlert("Winner!", "Congratulations!", "Exit");
+                await DisplayAlert("Winner!", "Congratulations!", "Exit");
             }
             else if(moveCount==9)//Jos kaikki siirrot on tehty eikä kolmen suoraa löytynyt peli pääättyy tasan
             {
                 timer.Stop();// Taas ajastin pysäytetään ja annetaan alla oleva ilmoitu
-                DisplayAlert("It's a tie", "GAME OVER", "Start over");
+                await DisplayAlert("It's a tie", "GAME OVER", "Start over");
                
             }
             else
             {
                 p1Turn = !p1Turn;// Tässä kohtaa muutetaan pelaajan vuoro asettamalla p1Turn arvo truesta falseksi ja jos se oli false muuttuu arvo trueksi, näin kontorloidaan pelaajien vuoroja
             }
+            if (!p1Turn && opponent.Text == "AI")
+            {
+                await Task.Delay(TimeSpan.FromSeconds(new Random().NextDouble() * 1.5 + 0.5));
+
+                AITurn();
+            }
         }
     }
 
 
-    private bool FindWinner()
+    private bool FindWinner()//Funktio tarkistaa löytyyko kolmen suoraa jostakin
     {
-        if (ThreeInaRow(rowone0, rowone1, rowone2) ||
+        if (ThreeInaRow(rowone0, rowone1, rowone2) ||// Ensin käydään läpi vaakatasossa olevat rivit
             ThreeInaRow(rowtwo0, rowtwo1, rowtwo2) ||
             ThreeInaRow(rowthree0, rowthree1, rowthree2) ||
-            // Vertikaaliset voittoehdot
-            ThreeInaRow(rowone0, rowtwo0, rowthree0) ||
+            
+            ThreeInaRow(rowone0, rowtwo0, rowthree0) ||//Seuraavaksi pystyrivit
             ThreeInaRow(rowone1, rowtwo1, rowthree1) ||
             ThreeInaRow(rowone2, rowtwo2, rowthree2) ||
-            // Diagonaalit
-            ThreeInaRow(rowone0, rowtwo1, rowthree2) ||
+            
+            ThreeInaRow(rowone0, rowtwo1, rowthree2) ||//Kolmantena viisto vaihtoehdot
             ThreeInaRow(rowone2, rowtwo1, rowthree0))
         {
             return true;
         }
-        return false;
+        else
+        {
+            return false;
+        }
+        
     }
 
     private bool ThreeInaRow(Button b1, Button b2, Button b3)
@@ -139,6 +149,43 @@ public partial class Start : ContentPage
 
 
 
+
+
+
+    private void AITurn()
+    {
+        
+        List<Button> availableButtons = new List<Button>();// Luodaa uusi lista johon luetaan tiedoksi kaikki "vapaat napit/kentät"
+
+        foreach (var child in Table.Children)//Foreach käy läpi Gridin nimeltä Table ja sen nappi-elementit (paitsi NewGame napin)
+        {
+            if (child is Button button && button != NewGame && button.Text == null)
+            {
+                availableButtons.Add(button);
+            }
+        }
+
+        
+        if (availableButtons.Count > 0)// Jos löytyy tyhjiä ruutuja enemmän kuin 0, kohteeksi valitaan näistä tyhjistä randomilla joku. Lisätään lopuksi siirtolaskuriin yksi siirto lisää
+        {
+            var targetButton = availableButtons[new Random().Next(availableButtons.Count)];
+            targetButton.Text = "O";
+            moveCount++;
+
+            
+            if (FindWinner())// Suoritetaan funktio joka tarkastaa löytyikö kolmen suoraa
+            {
+                timer.Stop();
+                DisplayAlert("Winner!", "Congratulations!", "Exit");
+            }
+            else if (moveCount == 9)
+            {
+                timer.Stop();
+                DisplayAlert("It's a tie", "GAME OVER", "Start over");
+            }
+            p1Turn = true;
+        }
+    }
 
 
 
