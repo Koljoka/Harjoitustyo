@@ -5,20 +5,20 @@ namespace Harjoitustyö
     public partial class MainPage : ContentPage
     {
         InfoStruct _player1;
-        List<InfoStruct> _players = new List<InfoStruct> ();// Luodaan lista johon tallennetaan pelaajien tietoja Structista.
+        List<InfoStruct> _players = new List<InfoStruct> ();// Luodaan lista johon tallennetaan pelaajien tietoja InfoStructista(_player1).
 
         public MainPage()
         {
             InitializeComponent();
 
-            _players = LoadFromJson();
+            _players = LoadFromJson(); //Ladataan tiedot JSON-tiedostosta
             _player1 = new InfoStruct();
         
-            pickPlayer.ItemsSource = _players;
+            pickPlayer.ItemsSource = _players; //pickPlayer poimii tiedot _players listasta
 
         }
 
-        public List<InfoStruct> LoadFromJson()
+        public List<InfoStruct> LoadFromJson() //Haetaan tieto Json tiedostosta ja tallennetaan se List<InfoStruct> muodossa
         {
             string readFile = @"c:\temp\MyTest.json";
             string jsonString = File.ReadAllText(readFile);
@@ -71,11 +71,25 @@ namespace Harjoitustyö
         }
 
 
-        async void StartButton_Clicked(object sender, EventArgs e)// Napin painalluksesta siirrytään peli sivustolle, ja samassa käynnistettään ajastin ja suoritetaan yllä kuvattu funktio
+        async void StartButton_Clicked(object sender, EventArgs e)// Napin painalluksesta siirrytään peli sivustolle.
         {
             _player1.Firstname = Fname.Text;   // Luetaan Entryistä tiedot Structiin
             _player1.Surname = Sname.Text;
-            _player1.Birthyear = Byear.Text;    
+            _player1.Birthyear = Byear.Text;
+
+            //Tarkistetaan seuraavaksi, että jokaisessa entry-kentässä on tietoa.
+            if (string.IsNullOrEmpty(_player1.Firstname) || string.IsNullOrEmpty(_player1.Surname) || string.IsNullOrEmpty(_player1.Birthyear))
+            {
+                await DisplayAlert("Error", "Fill every field with appropriate information", "OK");
+                return;
+            }
+            //Tarkistetaan syntymävuosi vielä tarkemmin. Halutaan, että siihen voi syöttää vain tarkan vuoden numeerisena arvona.
+            int year;
+            if (!int.TryParse(_player1.Birthyear, out year) || _player1.Birthyear.Length != 4)
+            {
+                await DisplayAlert("Error", "Give birth year in form of XXXX. Make sure you use only numbers.", "OK");
+                return;
+            }
 
             double sec = 0;
 
