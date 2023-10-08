@@ -14,7 +14,7 @@ public partial class Start : ContentPage
     public Start()
     {
         InitializeComponent();
-
+        TurnIndikation();
 
     }
 
@@ -59,12 +59,14 @@ public partial class Start : ContentPage
             else
             {
                 p1Turn = !p1Turn;// Tässä kohtaa muutetaan pelaajan vuoro asettamalla p1Turn arvo truesta falseksi ja jos se oli false muuttuu arvo trueksi, näin kontorloidaan pelaajien vuoroja
+                TurnIndikation();
             }
             if (!p1Turn && opponent.Text == "AI")
             {
                 await Task.Delay(TimeSpan.FromSeconds(new Random().NextDouble() * 1.5 + 0.5));
 
                 AITurn();
+                
             }
         }
     }
@@ -116,6 +118,8 @@ public partial class Start : ContentPage
         }
         p1Turn = true;
         moveCount = 0;
+
+        TurnIndikation();
     }
 
     private void NewGame_Clicked(object sender, EventArgs e)
@@ -196,9 +200,28 @@ public partial class Start : ContentPage
                 DisplayAlert("It's a tie", "GAME OVER", "Start over");
             }
             p1Turn = true;
+            TurnIndikation();
         }
     }
 
+
+
+
+    private void TurnIndikation()
+    {
+        if (p1Turn)
+        {
+            p1.TextColor = Colors.Yellow;
+
+            opponent.TextColor = Colors.Red;
+        }
+        else
+        {
+            opponent.TextColor = Colors.Yellow;
+
+            p1.TextColor = Colors.CornflowerBlue;
+        }
+    }
 
 
 
