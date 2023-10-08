@@ -1,4 +1,5 @@
-﻿using System.Text.Json;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Text.Json;
 
 namespace Harjoitustyö
 {
@@ -7,21 +8,28 @@ namespace Harjoitustyö
         InfoStruct _player1;
         List<InfoStruct> _players = new List<InfoStruct> ();// Luodaan lista johon tallennetaan pelaajien tietoja InfoStructista(_player1).
 
+        public const string FILENAME = "players.json";
+        string fileName = Path.Combine(FileSystem.Current.CacheDirectory, FILENAME);
         public MainPage()
         {
             InitializeComponent();
 
-            _players = LoadFromJson(); //Ladataan tiedot JSON-tiedostosta
-            _player1 = new InfoStruct();
+            if (File.Exists(fileName))
+            {
+                _players = LoadFromJson(); //Ladataan tiedot JSON-tiedostosta
+            }
+                _player1 = new InfoStruct();
         
             pickPlayer.ItemsSource = _players; //pickPlayer poimii tiedot _players listasta
 
+            
         }
 
         public List<InfoStruct> LoadFromJson() //Haetaan tieto Json tiedostosta ja tallennetaan se List<InfoStruct> muodossa
         {
-            string readFile = @"c:\temp\MyTest.json";
-            string jsonString = File.ReadAllText(readFile);
+            //string readFile = @"c:\temp\MyTest.json";
+           // string readFile = Path.Combine(FileSystem.Current.CacheDirectory, FILENAME);
+            string jsonString = File.ReadAllText(fileName);
             JsonSerializerOptions jsonOptions = new JsonSerializerOptions();
             jsonOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
 
@@ -35,8 +43,11 @@ namespace Harjoitustyö
         {
             JsonSerializerOptions jsonOptions = new JsonSerializerOptions();
             jsonOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;// Hoitaa ääkköset oikein JSON-tallennukseen
-        
-            string fileName = @"c:\temp\MyTest.json";
+
+
+           
+            //string fileName = @"c:\temp\MyTest.json";
+            string fileName = Path.Combine(FileSystem.Current.CacheDirectory, FILENAME);
             List<InfoStruct> existingPlayerInfo = new List<InfoStruct>();
 
             if(File.Exists(fileName)) //Luodaan funktion sisälle if ehto jolla tarkastetaan onko tiedosto jo olemassa, ja onko sillä sisältöä
@@ -55,7 +66,7 @@ namespace Harjoitustyö
             File.WriteAllText(fileName, jsonString);
          }
 
-        private string selectedOpponent; //Luodaan muuttuja joka ottaa talteen vastustajan valinnan
+        private string selectedOpponent = null; //Luodaan muuttuja joka ottaa talteen vastustajan valinnan alkuarvo asetetaan nulliksi jotta voidaan myöhemmin tarkastaa,että käyttäjä on valinnut itselleen jonkun vastuksen
         private void Player2Button_Clicked(object sender, EventArgs e) // Napin painalluksella valitaan muuttujaan teksti, ja samalla värillä indikoidaan kummassa napissa valinta on aktiivisena.
         {
             selectedOpponent = "Player 2";
@@ -88,6 +99,12 @@ namespace Harjoitustyö
             if (!int.TryParse(_player1.Birthyear, out year) || _player1.Birthyear.Length != 4)
             {
                 await DisplayAlert("Error", "Give birth year in form of XXXX. Make sure you use only numbers.", "OK");
+                return;
+            }
+
+            if (selectedOpponent == null)
+            {
+                await DisplayAlert("Error", "you must select an opponent", "OK");
                 return;
             }
 

@@ -24,8 +24,8 @@
 
             </Grid.ColumnDefinitions>
 
-            <Label x:Name="p1" TextColor="LightBlue" Padding="20" HorizontalOptions="Start" FontSize="Large" FontAttributes="Bold" ></Label>
-            <Label TextColor="LightBlue" HorizontalTextAlignment="Start"  FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="200"  Padding="20" FontSize="Large" Grid.Row="1" Grid.Column="0">0-0-0</Label>
+            <Label x:Name="p1" TextColor="CornflowerBlue" Padding="20" HorizontalOptions="Start" FontSize="Large" FontAttributes="Bold" ></Label>
+            <Label TextColor="CornflowerBlue" HorizontalTextAlignment="Start"  FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="200"  Padding="20" FontSize="Large" Grid.Row="1" Grid.Column="0">0-0-0</Label>
 
             <Button x:Name="rowone0" Clicked="ButtonClicked" FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="1" Grid.Column="1" ></Button>
             <Button x:Name="rowone1" Clicked="ButtonClicked" FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="1" Grid.Column="2" ></Button>
