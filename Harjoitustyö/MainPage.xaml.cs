@@ -112,11 +112,15 @@ namespace Harjoitustyö
                 return;
             }
 
-            var existingPlayer = _players.FirstOrDefault(p => p.Firstname == _player1.Firstname && p.Surname == _player1.Surname && p.Birthyear == _player1.Birthyear); // Päivtetään _player1 tiedot löydetyn pelaajan tiedoilla
+            var existingPlayer = _players.FirstOrDefault(p => p.Firstname == _player1.Firstname && p.Surname == _player1.Surname && p.Birthyear == _player1.Birthyear);//Verrataan _player1 tietoja _players listassa oleviin tietoihin. Mikäli löytyy samat tiedot = existingPlayer.
 
-            if (existingPlayer.Firstname != null && existingPlayer.Surname != null && existingPlayer.Birthyear != null)
+            if (existingPlayer.Firstname != null && existingPlayer.Surname != null && existingPlayer.Birthyear != null)// Päivtetään _player1 tiedot löydetyn pelaajan tiedoilla
             {
                 _player1 = existingPlayer;
+            }
+            else
+            {
+                _players.Add(_player1);
             }
            
 
@@ -125,7 +129,7 @@ namespace Harjoitustyö
             start.StartTimer();  //funktioita Start sivulla joiden avulla viedään tietoa MainPagelta Start-sivulle
             
             start.SetOpponent(selectedOpponent);
-            _players.Add(_player1);
+            
 
             SaveToJson(_players);
             start.WelcomeInfo(_players, _player1);
