@@ -8,7 +8,7 @@ namespace Harjoitustyö
         InfoStruct _player1;
         List<InfoStruct> _players = new List<InfoStruct> ();// Luodaan lista johon tallennetaan pelaajien tietoja InfoStructista(_player1).
 
-        public const string FILENAME = "players.json";
+        public const string FILENAME = "players.json"; //Nimetään json-tiedosto jonne kirjoitetaan, ja annetaan tallennuspolku. 
         string fileName = Path.Combine(FileSystem.Current.CacheDirectory, FILENAME);
         public MainPage()
         {
@@ -27,8 +27,7 @@ namespace Harjoitustyö
 
         public List<InfoStruct> LoadFromJson() //Haetaan tieto Json tiedostosta ja tallennetaan se List<InfoStruct> muodossa
         {
-            //string readFile = @"c:\temp\MyTest.json";
-           // string readFile = Path.Combine(FileSystem.Current.CacheDirectory, FILENAME);
+           
             string jsonString = File.ReadAllText(fileName);
             JsonSerializerOptions jsonOptions = new JsonSerializerOptions();
             jsonOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
@@ -39,7 +38,7 @@ namespace Harjoitustyö
             //Lataa ensin vanha JSON lista , muuten tyhjä lista tallentaa päälle.
         }
 
-        public void SaveToJson(List<InfoStruct> playerInfo)// Tehdään funktio joka suoritetaan napin painalluksen yhteydessä. Funktio tallentaa tiedot json muodossa tiedostoon.
+        public void SaveToJson(List<InfoStruct> playerInfo)// Tehdään funktio, joka suoritetaan napin painalluksen yhteydessä. Funktio tallentaa tiedot json muodossa tiedostoon.
         {
             JsonSerializerOptions jsonOptions = new JsonSerializerOptions();
             jsonOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;// Hoitaa ääkköset oikein JSON-tallennukseen
@@ -60,9 +59,12 @@ namespace Harjoitustyö
 
             existingPlayerInfo.AddRange(playerInfo);// Lisätään tiedot jo olemassa olevasta listasta uuteen listaan.
 
-            var uniquePlayerInfo = existingPlayerInfo.Distinct().ToList(); // Karsitaan pois duplikaatit.
+            var uniquePlayerInfo = existingPlayerInfo.GroupBy(p => new { p.Firstname, p.Surname, p.Birthyear }).Select(g => g.OrderByDescending(p => p.Wins).First()).ToList();
+
+            //var uniquePlayerInfo = existingPlayerInfo.Distinct().ToList(); // Karsitaan pois duplikaatit.
 
             string jsonString = JsonSerializer.Serialize(uniquePlayerInfo, jsonOptions);
+            _players = uniquePlayerInfo;//_players-tietue korvataan uniquePlayerInfolla josta on poistettu duplikaatit.
             File.WriteAllText(fileName, jsonString);
          }
 
@@ -87,6 +89,9 @@ namespace Harjoitustyö
             _player1.Firstname = Fname.Text;   // Luetaan Entryistä tiedot Structiin
             _player1.Surname = Sname.Text;
             _player1.Birthyear = Byear.Text;
+ 
+            var existingPlayer = _players.FirstOrDefault(p => p.Firstname == _player1.Firstname && p.Surname == _player1.Surname && p.Birthyear == _player1.Birthyear); // Päivtetään _player1 tiedot löydetyn pelaajan tiedoilla
+            _player1 = existingPlayer;
 
             //Tarkistetaan seuraavaksi, että jokaisessa entry-kentässä on tietoa.
             if (string.IsNullOrEmpty(_player1.Firstname) || string.IsNullOrEmpty(_player1.Surname) || string.IsNullOrEmpty(_player1.Birthyear))
@@ -108,18 +113,18 @@ namespace Harjoitustyö
                 return;
             }
 
-            double sec = 0;
+            
 
             Start start = new Start();
            
-            start.StartTimer((int)sec);  //funktioita Start sivulla joiden avulla viedään tietoa MainPagelta Start-sivulle
-            start.WelcomeInfo(_player1);
+            start.StartTimer();  //funktioita Start sivulla joiden avulla viedään tietoa MainPagelta Start-sivulle
+            
             start.SetOpponent(selectedOpponent);
             _players.Add(_player1);
 
             SaveToJson(_players);
+            start.WelcomeInfo(_players, _player1);
 
-                       
             await Navigation.PushAsync(start);
         }
 

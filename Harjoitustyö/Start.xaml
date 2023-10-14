@@ -25,7 +25,6 @@
             </Grid.ColumnDefinitions>
 
             <Label x:Name="p1" TextColor="CornflowerBlue" Padding="20" HorizontalOptions="Start" FontSize="Large" FontAttributes="Bold" ></Label>
-            <Label TextColor="CornflowerBlue" HorizontalTextAlignment="Start"  FontAttributes="Bold" HorizontalOptions="Center" VerticalOptions="Center" WidthRequest="200"  Padding="20" FontSize="Large" Grid.Row="1" Grid.Column="0">0-0-0</Label>
 
             <Button x:Name="rowone0" Clicked="ButtonClicked" FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="1" Grid.Column="1" ></Button>
             <Button x:Name="rowone1" Clicked="ButtonClicked" FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="1" Grid.Column="2" ></Button>
@@ -38,7 +37,6 @@
             <Button x:Name="rowthree2" Clicked="ButtonClicked"  FontAttributes="Bold" FontFamily=""  FontSize="Header" BackgroundColor="CornflowerBlue" BorderWidth="5" BorderColor="LightBlue" Margin="2" Grid.Row="3" Grid.Column="3" ></Button>
 
             <Label x:Name="opponent" TextColor="Red" Grid.Row="0" Grid.Column="4" Padding="20" HorizontalOptions="End" FontSize="Large" FontAttributes="Bold" >Player 2</Label>
-            <Label TextColor="Red" FontAttributes="Bold" VerticalOptions="Center" HorizontalTextAlignment="End" HorizontalOptions="Center" WidthRequest="200" Padding="20,20,20,20"  FontSize="Large" Grid.Row="1" Grid.Column="4">0-0-0</Label>
 
 
             <Label TextColor="LawnGreen" FontSize="Header" FontAttributes="Bold" HorizontalTextAlignment="Start" VerticalTextAlignment="Start" 

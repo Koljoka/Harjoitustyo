@@ -40,7 +40,7 @@
 
             <Button Clicked="StartButton_Clicked" x:Name="StartButton" FontSize="Medium" TextColor="Yellow" Grid.Row="5" Grid.Column="1" Margin="10" FontAttributes="Bold" BackgroundColor="Black" BorderColor="LawnGreen" BorderWidth="5" Text="START GAME" WidthRequest="230" HeightRequest="50"></Button>
 
-            
+            <Button x:Name="Scoreboard" FontSize="Medium" TextColor="Yellow" Grid.Row="6" Grid.Column="1" Margin="10" FontAttributes="Bold" BackgroundColor="Black" BorderColor="Yellow" BorderWidth="5" Text="|||Scoreboard|||" WidthRequest="230" HeightRequest="50"></Button>
                 
         </Grid>
 
