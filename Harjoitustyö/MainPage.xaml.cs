@@ -1,4 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
+﻿
 using System.Text.Json;
 
 namespace Harjoitustyö
@@ -90,8 +90,7 @@ namespace Harjoitustyö
             _player1.Surname = Sname.Text;
             _player1.Birthyear = Byear.Text;
  
-            var existingPlayer = _players.FirstOrDefault(p => p.Firstname == _player1.Firstname && p.Surname == _player1.Surname && p.Birthyear == _player1.Birthyear); // Päivtetään _player1 tiedot löydetyn pelaajan tiedoilla
-            _player1 = existingPlayer;
+            
 
             //Tarkistetaan seuraavaksi, että jokaisessa entry-kentässä on tietoa.
             if (string.IsNullOrEmpty(_player1.Firstname) || string.IsNullOrEmpty(_player1.Surname) || string.IsNullOrEmpty(_player1.Birthyear))
@@ -101,7 +100,7 @@ namespace Harjoitustyö
             }
             //Tarkistetaan syntymävuosi vielä tarkemmin. Halutaan, että siihen voi syöttää vain tarkan vuoden numeerisena arvona.
             int year;
-            if (!int.TryParse(_player1.Birthyear, out year) || _player1.Birthyear.Length != 4)
+            if (!int.TryParse(_player1.Birthyear, out year) || (_player1.Birthyear.Length != 4))
             {
                 await DisplayAlert("Error", "Give birth year in form of XXXX. Make sure you use only numbers.", "OK");
                 return;
@@ -113,7 +112,13 @@ namespace Harjoitustyö
                 return;
             }
 
-            
+            var existingPlayer = _players.FirstOrDefault(p => p.Firstname == _player1.Firstname && p.Surname == _player1.Surname && p.Birthyear == _player1.Birthyear); // Päivtetään _player1 tiedot löydetyn pelaajan tiedoilla
+
+            if (existingPlayer.Firstname != null && existingPlayer.Surname != null && existingPlayer.Birthyear != null)
+            {
+                _player1 = existingPlayer;
+            }
+           
 
             Start start = new Start();
            
@@ -128,6 +133,14 @@ namespace Harjoitustyö
             await Navigation.PushAsync(start);
         }
 
-       
+        private async void Scoreboard_Clicked(object sender, EventArgs e)
+        {
+
+            ScoreBoard scoreBoard = new ScoreBoard();
+
+            scoreBoard.WelcomeInfo(_players);
+            await Navigation.PushAsync(scoreBoard);
+
+        }
     }
 }
