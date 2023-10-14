@@ -46,26 +46,30 @@ public partial class Start : ContentPage
 
                 if (p1Turn) // Käydään voittajavaihtoehdot läpi ja ilmoitetaan se asianmukaisella tekstillä DisplayAlertissa
                 {
-                    await DisplayAlert($"{_player.Firstname} is the WINNER!", "Congartulations!", "Exit" );
-                    
+                    await DisplayAlert($"{_player.Firstname} is the WINNER!", "Congratulations!", "Exit");
+
                     _player.Wins += 1;
-                }    
-            else if (opponent.Text == "AI") 
-            {
-                    await DisplayAlert("AI is the WINNER.", "Better luck next time", "Exit");
-                    _player.Losses += 1;  
+                    _player.TimePlayed += int.Parse(TimerL.Text);
                 }
-            else
-            {
+                else if (opponent.Text == "AI")
+                {
+                    await DisplayAlert("AI is the WINNER.", "Better luck next time", "Exit");
+                    _player.Losses += 1;
+                    _player.TimePlayed += int.Parse(TimerL.Text);
+                }
+                else
+                {
                     await DisplayAlert("Player 2 is the WINNER", "Congratulations!", "Exit");
                     _player.Losses += 1;
+                    _player.TimePlayed += int.Parse(TimerL.Text);
                 }
             }
-            else if(moveCount==9)//Jos kaikki siirrot on tehty eikä kolmen suoraa löytynyt peli pääättyy tasan
+            else if (moveCount == 9)//Jos kaikki siirrot on tehty eikä kolmen suoraa löytynyt peli pääättyy tasan
             {
                 timer.Stop();// Taas ajastin pysäytetään ja annetaan alla oleva ilmoitu
                 await DisplayAlert("It's a tie", "GAME OVER", "Start over");
                 _player.Ties += 1;
+                _player.TimePlayed += int.Parse(TimerL.Text);
             }
             else
             {
@@ -77,7 +81,7 @@ public partial class Start : ContentPage
                 await Task.Delay(TimeSpan.FromSeconds(new Random().NextDouble() * 1.5 + 0.5));// Jos todetaan, että pelaajaksi on määritelty AI ja ei ole p1 vuoro, odotetaan hetki, ja sen jälkeen suoritetaan tekoälyn toimintaa ohjaava funktio.
 
                 AITurn();
-                
+
             }
         }
         if (FindWinner() || moveCount == 9)
@@ -91,7 +95,7 @@ public partial class Start : ContentPage
             }
 
 
-            
+
             SaveToJson(_infoList);//Tallennetaan päivitetty lista
 
         }
@@ -103,7 +107,7 @@ public partial class Start : ContentPage
         JsonSerializerOptions jsonOptions = new JsonSerializerOptions();
         jsonOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;// Hoitaa ääkköset oikein JSON-tallennukseen
 
-       
+
         string fileName = Path.Combine(FileSystem.Current.CacheDirectory, FILENAME);
         List<InfoStruct> existingPlayerInfo = new List<InfoStruct>();
 
@@ -117,7 +121,14 @@ public partial class Start : ContentPage
 
         existingPlayerInfo.AddRange(playerInfo);// Lisätään tiedot jo olemassa olevasta listasta uuteen listaan.
 
-        var uniquePlayerInfo = existingPlayerInfo.GroupBy(p => new { p.Firstname, p.Surname, p.Birthyear }).Select(g => g.OrderByDescending(p => p.Wins).First()).ToList();// Poistetaan dublikaatit, tallennetaan vain tietue jossa voittojen/tapioiden/tasapelien arvot ovat korkeimmat.
+        var uniquePlayerInfo = existingPlayerInfo.GroupBy(p => new { p.Firstname, p.Surname, p.Birthyear }).Select(g =>
+        {
+            return g.OrderByDescending(p => p.Wins)
+                    .ThenByDescending(p => p.Ties)
+                    .ThenByDescending(p => p.Losses)
+                    .ThenByDescending (p => p.TimePlayed)
+                    .First();
+        }).ToList();// Poistetaan dublikaatit, tallennetaan vain tietue jossa voittojen/tapioiden/tasapelien arvot ovat korkeimmat.
 
         string jsonString = JsonSerializer.Serialize(uniquePlayerInfo, jsonOptions);
         File.WriteAllText(fileName, jsonString);
@@ -130,11 +141,11 @@ public partial class Start : ContentPage
         if (ThreeInaRow(rowone0, rowone1, rowone2) ||// Ensin käydään läpi vaakatasossa olevat rivit
             ThreeInaRow(rowtwo0, rowtwo1, rowtwo2) ||
             ThreeInaRow(rowthree0, rowthree1, rowthree2) ||
-            
+
             ThreeInaRow(rowone0, rowtwo0, rowthree0) ||//Seuraavaksi pystyrivit
             ThreeInaRow(rowone1, rowtwo1, rowthree1) ||
             ThreeInaRow(rowone2, rowtwo2, rowthree2) ||
-            
+
             ThreeInaRow(rowone0, rowtwo1, rowthree2) ||//Kolmantena viisto vaihtoehdot
             ThreeInaRow(rowone2, rowtwo1, rowthree0))
         {
@@ -144,14 +155,14 @@ public partial class Start : ContentPage
         {
             return false;
         }
-        
+
     }
 
     private bool ThreeInaRow(Button b1, Button b2, Button b3)//Kun löydetään kolmen suora, tämä funktio värjää kyseisen suoran nappuloiden ääriviivat keltaisiksi, ja osoittaa sillä tavoin voittorivin. Funktiota hyödynnetaan FindWinner funktion sisällä tarkistuksen yhteydessä
     {
         if (b1.Text != null && b1.Text == b2.Text && b2.Text == b3.Text)
         {
-            b1.BorderColor = Colors.Yellow;  
+            b1.BorderColor = Colors.Yellow;
             b2.BorderColor = Colors.Yellow;
             b3.BorderColor = Colors.Yellow;
             return true;
@@ -189,7 +200,7 @@ public partial class Start : ContentPage
         p1.Text = player.Firstname; //Otetaan structiin tallennettu tieto ja tulostetaan se haluttuun kohtaan ohjelmassa.
     }
 
-    
+
     public void SetOpponent(string opponentType) // Tuo tiedon vastustajan valinnasta ja kirjoittaa Labeliin valitun vastustajan
     {
         opponent.Text = opponentType;
@@ -200,7 +211,7 @@ public partial class Start : ContentPage
     public void StartTimer()// Ajastimen aloitus funktio, joka päivittää ajastinta myös sille omistettuun labeliin näkyville.
     {
 
-        int sec = 0;    
+        int sec = 0;
 
         timerCount = sec;
         TimerL.Text = sec.ToString();
@@ -227,7 +238,7 @@ public partial class Start : ContentPage
 
     private void AITurn()//Tekoälyn toimintaa ohjaava funktio
     {
-        
+
         List<Button> availableButtons = new List<Button>();// Luodaa uusi lista johon luetaan tiedoksi kaikki "vapaat napit/kentät"
 
         foreach (var child in Table.Children)//Foreach käy läpi Gridin nimeltä Table ja sen nappi-elementit (paitsi NewGame napin)
@@ -238,14 +249,14 @@ public partial class Start : ContentPage
             }
         }
 
-        
+
         if (availableButtons.Count > 0)// Jos löytyy tyhjiä ruutuja enemmän kuin 0, kohteeksi valitaan näistä tyhjistä randomilla joku. Lisätään lopuksi siirtolaskuriin yksi siirto lisää
         {
             var targetButton = availableButtons[new Random().Next(availableButtons.Count)];
             targetButton.Text = "O";
             moveCount++;
 
-            
+
             if (FindWinner())// Suoritetaan funktio joka tarkastaa löytyikö kolmen suoraa
             {
                 timer.Stop();
