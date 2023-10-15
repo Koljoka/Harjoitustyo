@@ -261,11 +261,13 @@ public partial class Start : ContentPage
             {
                 timer.Stop();
                 DisplayAlert("AI is the WINNER.", "Better luck next time", "Exit");//Jos löytyi ja vuoro oli AI:n ilmoietaan tekoäly voittajaksi
+                _player.Losses += 1;
             }
             else if (moveCount == 9)
             {
                 timer.Stop();
                 DisplayAlert("It's a tie", "GAME OVER", "Start over");//Jos taas liikelaskuri tuli täyteen eikä löytynyt kolmen suoraa tulos on tasapeli
+                _player.Ties += 1;
             }
             p1Turn = true;
             TurnIndikation();

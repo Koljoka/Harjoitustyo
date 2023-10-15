@@ -44,8 +44,6 @@ namespace Harjoitustyö
             jsonOptions.Encoder = System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;// Hoitaa ääkköset oikein JSON-tallennukseen
 
 
-           
-            //string fileName = @"c:\temp\MyTest.json";
             string fileName = Path.Combine(FileSystem.Current.CacheDirectory, FILENAME);
             List<InfoStruct> existingPlayerInfo = new List<InfoStruct>();
 

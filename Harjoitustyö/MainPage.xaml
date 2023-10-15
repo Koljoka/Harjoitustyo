@@ -23,8 +23,8 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Text="Existing Player:" Padding="20" FontSize="Medium" FontAttributes="Bold" TextColor="Yellow"></Label>
-            <Picker x:Name="pickPlayer" BackgroundColor="WhiteSmoke" WidthRequest="250" Margin="0,18,0,0" Grid.Column="1" Grid.Row="0" ItemDisplayBinding="{Binding Surname}"></Picker>
-            
+            <Picker x:Name="pickPlayer" BackgroundColor="WhiteSmoke" WidthRequest="250" Margin="0,18,0,0" Grid.Column="1" Grid.Row="0" ItemDisplayBinding="{Binding Surname}"></Picker> <!--Tänne kommentti-->
+
             <Label  Grid.Row="1" TextColor="Red" Grid.Column="0" Padding="20" FontSize="Medium" FontAttributes="Bold" Text="Enter first name:"></Label>
             <Entry x:Name="Fname" Grid.Row="1" Grid.Column="1" WidthRequest="250" HeightRequest="50" BackgroundColor="WhiteSmoke" Placeholder="Firstname" BindingContext="{x:Reference pickPlayer}" Text="{Binding SelectedItem.Firstname}"></Entry>
 

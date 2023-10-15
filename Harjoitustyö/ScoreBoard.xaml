@@ -4,23 +4,46 @@
              x:Class="Harjoitustyö.ScoreBoard"
              Title="Score board" BackgroundColor="Black">
 
+    <Grid>
+    <Grid HorizontalOptions="Center" Padding="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="200" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="50" />
+                <ColumnDefinition Width="200" />
+            </Grid.ColumnDefinitions>
 
-    <CollectionView x:Name="playersList" HorizontalOptions="Center">
+            <Label Grid.Column="0" Text="Firstname" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Red" TextDecorations="Underline" FontSize="Title"/>
+            <Label Grid.Column="1" Text="Surname" FontAttributes="Bold" HorizontalOptions="Center" TextColor="CornflowerBlue" TextDecorations="Underline" FontSize="Title"/>
+            <Label Grid.Column="2" Text="Birthyear" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Yellow" TextDecorations="Underline" FontSize="Title"/>
+            <Label Grid.Column="3" Text="W" FontAttributes="Bold" HorizontalOptions="Center" TextColor="LawnGreen" TextDecorations="Underline" FontSize="Title"/>
+            <Label Grid.Column="4" Text="L" FontAttributes="Bold" HorizontalOptions="Center" TextColor="LawnGreen" TextDecorations="Underline" FontSize="Title"/>
+            <Label Grid.Column="5" Text="T" FontAttributes="Bold" HorizontalOptions="Center" TextColor="LawnGreen" TextDecorations="Underline" FontSize="Title"/>
+            <Label Grid.Column="6" Text="Time played s." FontAttributes="Bold" HorizontalOptions="Center" TextColor="Red" TextDecorations="Underline" FontSize="Title"/>
+        </Grid>
+
+    <CollectionView x:Name="playersList" HorizontalOptions="Center" Margin="60">
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <Grid Padding="10">
+                <Grid> 
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto"/>
 
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="200" />
                         <ColumnDefinition Width="50" />
                         <ColumnDefinition Width="50" />
                         <ColumnDefinition Width="50" />
-                        <ColumnDefinition Width="100" />
+                        <ColumnDefinition Width="200" />
                     </Grid.ColumnDefinitions>
 
                     <Label Grid.Column="0" Text="{Binding Firstname}" FontAttributes="Bold" TextColor="Red" HorizontalOptions="Center" FontSize="Medium"/>
@@ -35,4 +58,6 @@
         </CollectionView.ItemTemplate>
       
     </CollectionView>
+    </Grid>
+
 </ContentPage>
