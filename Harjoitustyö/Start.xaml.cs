@@ -42,9 +42,9 @@ public partial class Start : ContentPage
             moveCount++;     //Lasketaan vuoroja ja lisätään aina yksi
             if (FindWinner())// Suoritetaan funktio joka tarkistaa löytyykö kolmen suoraa
             {
-                timer.Stop();//jos löytyi ajastin pysäytetään ja annetaan tekstilaatikko joka kertoo allaolevan.
+                timer.Stop();//jos löytyi ajastin pysäytetään ja annetaan tekstilaatikko joka kertoo alla olevan.
 
-                if (p1Turn) // Käydään voittajavaihtoehdot läpi ja ilmoitetaan se asianmukaisella tekstillä DisplayAlertissa
+                if (p1Turn) // Käydään voittajavaihtoehdot läpi ja ilmoitetaan se asianmukaisella tekstillä DisplayAlertissa. Tämän lisäksi rekisteröityneen pelaajan tietoihin päivitetään ottelun tulos ja lisätään kokonaispeliaikaan kyseisen pelin kesto.
                 {
                     await DisplayAlert($"{_player.Firstname} is the WINNER!", "Congratulations!", "Exit");
 
@@ -66,7 +66,7 @@ public partial class Start : ContentPage
             }
             else if (moveCount == 9)//Jos kaikki siirrot on tehty eikä kolmen suoraa löytynyt peli pääättyy tasan
             {
-                timer.Stop();// Taas ajastin pysäytetään ja annetaan alla oleva ilmoitu
+                timer.Stop();// Taas ajastin pysäytetään ja annetaan alla oleva ilmoitus
                 await DisplayAlert("It's a tie", "GAME OVER", "Start over");
                 _player.Ties += 1;
                 _player.TimePlayed += int.Parse(TimerL.Text);

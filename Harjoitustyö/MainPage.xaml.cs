@@ -47,7 +47,7 @@ namespace Harjoitustyö
             string fileName = Path.Combine(FileSystem.Current.CacheDirectory, FILENAME);
             List<InfoStruct> existingPlayerInfo = new List<InfoStruct>();
 
-            if(File.Exists(fileName)) //Luodaan funktion sisälle if ehto jolla tarkastetaan onko tiedosto jo olemassa, ja onko sillä sisältöä
+            if(File.Exists(fileName)) //Luodaan funktion sisälle if-ehto jolla tarkastetaan onko tiedosto jo olemassa, ja onko sillä sisältöä
             {
                 string existingJsonString = File.ReadAllText(fileName);
                 existingPlayerInfo = JsonSerializer.Deserialize<List<InfoStruct>>(existingJsonString, jsonOptions);
@@ -66,7 +66,7 @@ namespace Harjoitustyö
             File.WriteAllText(fileName, jsonString);
          }
 
-        private string selectedOpponent = null; //Luodaan muuttuja joka ottaa talteen vastustajan valinnan alkuarvo asetetaan nulliksi jotta voidaan myöhemmin tarkastaa,että käyttäjä on valinnut itselleen jonkun vastuksen
+        private string selectedOpponent = null; //Luodaan muuttuja joka ottaa talteen vastustajan valinnan, alkuarvo asetetaan nulliksi, jotta voidaan myöhemmin tarkastaa, että käyttäjä on valinnut itselleen jonkun vastuksen
         private void Player2Button_Clicked(object sender, EventArgs e) // Napin painalluksella valitaan muuttujaan teksti, ja samalla värillä indikoidaan kummassa napissa valinta on aktiivisena.
         {
             selectedOpponent = "Player 2";
@@ -135,7 +135,7 @@ namespace Harjoitustyö
             await Navigation.PushAsync(start);
         }
 
-        private async void Scoreboard_Clicked(object sender, EventArgs e)
+        private async void Scoreboard_Clicked(object sender, EventArgs e) // Napin painalluksesta siirrytään  ScoreBoard sivulle. scoreBoard.WelcomeInfo(_players) vie teidot myös sinne.
         {
 
             ScoreBoard scoreBoard = new ScoreBoard();

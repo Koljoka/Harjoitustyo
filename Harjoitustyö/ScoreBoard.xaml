@@ -5,11 +5,13 @@
              Title="Score board" BackgroundColor="Black">
 
     <Grid>
-    <Grid HorizontalOptions="Center" Padding="10">
+        <!--Yhden Grid-elementin sisälle rakennetaan kaksi erillistä gridiä jotka toimivat itsenäisesti-->
+
+        <Grid HorizontalOptions="Center" Padding="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="200" />
                 <ColumnDefinition Width="200" />
@@ -17,8 +19,8 @@
                 <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="50" />
                 <ColumnDefinition Width="200" />
-            </Grid.ColumnDefinitions>
-
+        </Grid.ColumnDefinitions>
+            <!--Yllä määritellään ylemmän gridin asetukset, 1 rivi ja 7 saraketta. Tämä toimii otsikkorivinä tulossivulla.-->
             <Label Grid.Column="0" Text="Firstname" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Red" TextDecorations="Underline" FontSize="Title"/>
             <Label Grid.Column="1" Text="Surname" FontAttributes="Bold" HorizontalOptions="Center" TextColor="CornflowerBlue" TextDecorations="Underline" FontSize="Title"/>
             <Label Grid.Column="2" Text="Birthyear" FontAttributes="Bold" HorizontalOptions="Center" TextColor="Yellow" TextDecorations="Underline" FontSize="Title"/>
@@ -26,10 +28,12 @@
             <Label Grid.Column="4" Text="L" FontAttributes="Bold" HorizontalOptions="Center" TextColor="LawnGreen" TextDecorations="Underline" FontSize="Title"/>
             <Label Grid.Column="5" Text="T" FontAttributes="Bold" HorizontalOptions="Center" TextColor="LawnGreen" TextDecorations="Underline" FontSize="Title"/>
             <Label Grid.Column="6" Text="Time played s." FontAttributes="Bold" HorizontalOptions="Center" TextColor="Red" TextDecorations="Underline" FontSize="Title"/>
+            <!--Tässä on määritelty Labeleilla otsikot-->
         </Grid>
 
-    <CollectionView x:Name="playersList" HorizontalOptions="Center" Margin="60">
-        <CollectionView.ItemTemplate>
+        <CollectionView x:Name="playersList" HorizontalOptions="Center" Margin="60">
+            <!--Luodaan playersList niminen ohjauskomponentti johon tuodaan pelaajista tietoa ja esitetään se gridissä-->
+            <CollectionView.ItemTemplate>
             <DataTemplate>
                 <Grid> 
                     <Grid.RowDefinitions>
@@ -44,7 +48,9 @@
                         <ColumnDefinition Width="50" />
                         <ColumnDefinition Width="50" />
                         <ColumnDefinition Width="200" />
-                    </Grid.ColumnDefinitions>
+                        </Grid.ColumnDefinitions>
+                        <!--Määritellään saman lainen grid-pohja kuin ylemmässäkin ostikkoversiossa.-->
+
 
                     <Label Grid.Column="0" Text="{Binding Firstname}" FontAttributes="Bold" TextColor="Red" HorizontalOptions="Center" FontSize="Medium"/>
                     <Label Grid.Column="1" Text="{Binding Surname}" FontAttributes="Bold" TextColor="CornflowerBlue" HorizontalOptions="Center" FontSize="Medium"/>
@@ -53,7 +59,9 @@
                     <Label Grid.Column="4" Text="{Binding Losses}" FontAttributes="Bold" TextColor="LawnGreen" HorizontalOptions="Center" FontSize="Medium"/>
                     <Label Grid.Column="5" Text="{Binding Ties}" FontAttributes="Bold" TextColor="LawnGreen" HorizontalOptions="Center" FontSize="Medium"/>
                     <Label Grid.Column="6" Text="{Binding TimePlayed}" FontAttributes="Bold" TextColor="Red" HorizontalOptions="Center" FontSize="Medium"/>
-                </Grid>
+                    <!--Labeleiden tekstit määräytyvät bindingin mukaan. Haetaan tietoa pelaajalistasta ja esitetään nimetty tieto halutussa labelissa.-->
+
+                    </Grid>
             </DataTemplate>
         </CollectionView.ItemTemplate>
       
