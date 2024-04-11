@@ -14,7 +14,7 @@ namespace Harjoitustyö
         {
             InitializeComponent();
 
-            if (File.Exists(fileName))
+            if (File.Exists(fileName)) // Tarkistetaan löytyykö kyseinen tallennus.
             {
                 _players = LoadFromJson(); //Ladataan tiedot JSON-tiedostosta
             }
@@ -35,7 +35,7 @@ namespace Harjoitustyö
             List<InfoStruct> playerInfo = JsonSerializer.Deserialize<List<InfoStruct>>(jsonString, jsonOptions);
 
             return playerInfo;  
-            //Lataa ensin vanha JSON lista , muuten tyhjä lista tallentaa päälle.
+      
         }
 
         public void SaveToJson(List<InfoStruct> playerInfo)// Tehdään funktio, joka suoritetaan napin painalluksen yhteydessä. Funktio tallentaa tiedot json muodossa tiedostoon.
@@ -57,9 +57,7 @@ namespace Harjoitustyö
 
             existingPlayerInfo.AddRange(playerInfo);// Lisätään tiedot jo olemassa olevasta listasta uuteen listaan.
 
-            var uniquePlayerInfo = existingPlayerInfo.GroupBy(p => new { p.Firstname, p.Surname, p.Birthyear }).Select(g => g.OrderByDescending(p => p.Wins).First()).ToList();
-
-            //var uniquePlayerInfo = existingPlayerInfo.Distinct().ToList(); // Karsitaan pois duplikaatit.
+            var uniquePlayerInfo = existingPlayerInfo.GroupBy(p => new { p.Firstname, p.Surname, p.Birthyear }).Select(g => g.OrderByDescending(p => p.Wins).First()).ToList();//Tallennetaan jokaista eri pelaajaa vain kerran listalle, ja päivitetään hänen tiedot.
 
             string jsonString = JsonSerializer.Serialize(uniquePlayerInfo, jsonOptions);
             _players = uniquePlayerInfo;//_players-tietue korvataan uniquePlayerInfolla josta on poistettu duplikaatit.

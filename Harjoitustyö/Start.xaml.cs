@@ -64,7 +64,7 @@ public partial class Start : ContentPage
                     _player.TimePlayed += int.Parse(TimerL.Text);
                 }
             }
-            else if (moveCount == 9)//Jos kaikki siirrot on tehty eikä kolmen suoraa löytynyt peli pääättyy tasan
+            else if (moveCount == 9)//Jos kaikki siirrot on tehty eikä kolmen suoraa löytynyt peli päättyy tasan
             {
                 timer.Stop();// Taas ajastin pysäytetään ja annetaan alla oleva ilmoitus
                 await DisplayAlert("It's a tie", "GAME OVER", "Start over");

@@ -5,7 +5,7 @@
 
     <ScrollView>
 
-        <Grid BackgroundColor="Black" HorizontalOptions="Center"> <!--Muotoillaan sivun ulkoasun rakenne gridin avulla joka luodaan scroll viwn sisälle-->
+        <Grid BackgroundColor="Black" HorizontalOptions="Center"> <!--Muotoillaan sivun ulkoasun rakenne gridin avulla joka luodaan scroll viewn sisälle-->
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto"></RowDefinition><!--Aloitussivulta löytyy allekain rivejä joita on 7, ne määritellään tässä-->
                 <RowDefinition Height="auto"></RowDefinition>
